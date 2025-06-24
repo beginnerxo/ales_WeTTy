@@ -17,21 +17,22 @@ completed_task= []
 
 
 def add(task_to_add: str):
-    tasks.append(task_to_add)
+    tasks.append({"text":task_to_add, "done": False})
     return("Task Added Succeffully")
    
     
 
 def view_all():
-    return [f"{number + 1}: {task}" for number, task in enumerate(tasks)]
+    return tasks
 
         
+def delete(task_text):
+    for task in tasks:
+        if task["text"] == task_text:
+            tasks.remove(task)
+            return f"Deleted '{task_text}'"
+    return f"Task '{task_text}' not found"
 
-def delete(task_to_delete):
-    for task_to_delete in tasks:
-        tasks.remove(task_to_delete)
-        return("Task removed successfully")
-    return("Task Not Found")
 
 
 def check_if_exists(task_to_check):
@@ -44,12 +45,11 @@ def check_if_exists(task_to_check):
 
 
 def complete(task_to_complete):
-    if task_to_complete.casefold() in tasks:
-        completed_task.append[task_to_complete]
-        tasks.remove(task_to_complete)
-        return("Task Marked as complete")
-    return ("Task Not Found")
-    
+    for task in tasks:
+        if task["text"] == task_to_complete:
+            task["done"] = True
+            return f"Marked '{task_to_complete}' as complete"
+    return "Task not found"
     
     
 
